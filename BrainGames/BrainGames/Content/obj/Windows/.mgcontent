@@ -4,6 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/TELERIK/3. C# - OOP/TEAMWORK/BrainGames/BrainGames/Content/Fonts/ArialFont.spritefont</File>
+    <File>D:/Programming/C#/VSProjects/Teamwork-Project/BrainGames/BrainGames/Content/Fonts/ArialFont</File>
   </SourceFiles>
 </SourceFileCollection>

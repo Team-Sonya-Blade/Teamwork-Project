@@ -47,6 +47,9 @@
             Texture2D selectBoxEagleEye = game.Content.Load<Texture2D>("../../Content/Images/MenuState/EagleEye.png");
             texturesAtlas.Add("SelectBoxEagleEye", selectBoxEagleEye);
 
+            Texture2D selectBoxAccuracy = game.Content.Load<Texture2D>("../../Content/Images/MenuState/AccuracyTrainer.png");
+            texturesAtlas.Add("SelectBoxAccuracy", selectBoxAccuracy);
+
             Texture2D selectBoxMemoryMatrix = game.Content.Load<Texture2D>("../../Content/Images/MenuState/MemoryMatrix.png");
             texturesAtlas.Add("SelectBoxMemoryMatrix", selectBoxMemoryMatrix);
 
@@ -76,6 +79,28 @@
 
             Texture2D memoryMatrixQuit = game.Content.Load<Texture2D>("../../Content/Images/MemoryMatrixState/Quit.png");
             texturesAtlas.Add("MemoryMatrixQuit", memoryMatrixQuit);
+
+            Texture2D accuracyEasyTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/BigTarget.png");
+            texturesAtlas.Add("AccuracyEasyTarget", accuracyEasyTarget);
+
+            Texture2D accuracyMediumTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/MediumTarget.png");
+            texturesAtlas.Add("AccuracyMediumTarget", accuracyMediumTarget);
+
+            Texture2D accuracyHardTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/SmallTarget.png");
+            texturesAtlas.Add("AccuracyHardTarget", accuracyHardTarget);
+
+            Texture2D accuracyBonusTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/BonusTarget.png");
+            texturesAtlas.Add("AccuracyBonusTarget", accuracyBonusTarget);
+
+            Texture2D accuracyHiddenTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/HiddenTarget.png");
+            texturesAtlas.Add("AccuracyHiddenTarget", accuracyHiddenTarget);
+
+            Texture2D accuracyHitTarget = game.Content.Load<Texture2D>("../../Content/Images/AccuracyTrainer/HitTarget.png");
+            texturesAtlas.Add("AccuracyHitTarget", accuracyHitTarget);
+
+            Texture2D highScoreBackground = game.Content.Load<Texture2D>("../../Content/Images/HighScoreState/Background.png");
+            texturesAtlas.Add("HighScoreBackground", highScoreBackground);
+
         }
 
         public static Texture2D GetTexture(string textureName)

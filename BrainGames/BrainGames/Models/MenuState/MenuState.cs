@@ -19,7 +19,7 @@
         private ClickableBox highScoresBox;
         private ClickableBox exitBox;
         private RegularBox selectBox;
-        private ClickableBox selectBoxEagleEye;
+        private ClickableBox selectBoxAccuracyTrainer;
         private ClickableBox selectBoxMemoryMatrix;
         private ClickableBox selectBoxPinball;
 
@@ -55,9 +55,10 @@
                 this.StateManager.Difficulty = DifficultyType.Hard;
             }
 
-            if (this.selectBoxEagleEye.CheckForClick())
+            if (this.selectBoxAccuracyTrainer.CheckForClick())
             {
-                // TO DO: this.StateManager.States.Push(new EagleEyeState());
+                Background accuracyTrainerBackground = new Background(Textures.GetTexture("MemoryMatrixBackground"));
+                this.StateManager.States.Push(new AccuracyTrainerState(accuracyTrainerBackground, this.StateManager));
             }
 
             if (this.selectBoxMemoryMatrix.CheckForClick())
@@ -73,7 +74,8 @@
 
             if (this.highScoresBox.CheckForClick())
             {
-                // TO DO: show high scores
+                Background accuracyTrainerBackground = new Background(Textures.GetTexture("MemoryMatrixBackground"));
+                this.StateManager.States.Push(new HighScoreState(accuracyTrainerBackground, this.StateManager));
             }
 
             if (this.exitBox.CheckForClick())
@@ -147,14 +149,14 @@
                     MenuStateConstants.DifficultySelectBoxHeight));
             this.ListOfObjects.Add(this.difficultyBoxHard);
 
-            this.selectBoxEagleEye = new ClickableBox(
-                Textures.GetTexture("SelectBoxEagleEye"),
+            this.selectBoxAccuracyTrainer = new ClickableBox(
+                Textures.GetTexture("SelectBoxAccuracy"),
                 new Rectangle(
                     MenuStateConstants.GameSelectBoxX,
                     MenuStateConstants.GameSelectBoxY1,
                     MenuStateConstants.GameSelectBoxWidth,
                     MenuStateConstants.GameSelectBoxHeight));
-            this.ListOfObjects.Add(this.selectBoxEagleEye);
+            this.ListOfObjects.Add(this.selectBoxAccuracyTrainer);
 
             this.selectBoxMemoryMatrix = new ClickableBox(
                 Textures.GetTexture("SelectBoxMemoryMatrix"),

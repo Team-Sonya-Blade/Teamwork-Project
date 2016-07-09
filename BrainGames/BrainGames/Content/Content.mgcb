@@ -13,9 +13,9 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Fonts/ArialFont.spritefont
+#begin Fonts/ArialFont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:Fonts/ArialFont.spritefont
+/build:Fonts/ArialFont
 
