@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace BrainGames
+﻿namespace BrainGames
 {
+    using System;
+
 #if WINDOWS || LINUX
     /// <summary>
     /// The main class.

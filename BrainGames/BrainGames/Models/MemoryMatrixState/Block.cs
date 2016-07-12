@@ -1,5 +1,7 @@
 ﻿namespace BrainGames.Models.MemoryMatrixState
 {
+    using System.Collections.Generic;
+
     using global::BrainGames.Interfaces;
     using global::BrainGames.Models.CustomExceptions;
     using global::BrainGames.Utilities.Constants;
@@ -14,12 +16,14 @@
         private int code;
         private bool isTurned;
         private bool isCalculateToScore;
+        private Textures textures;
 
-        public Block(Texture2D texture, Rectangle rectangle, int code)
+        public Block(Texture2D texture, Rectangle rectangle, int code, Textures textures)
             : base(texture, rectangle)
         {
             this.Code = code;
             this.IsTurned = true;
+            this.textures = textures;
         }
 
         public int Code
@@ -72,11 +76,11 @@
             {
                 if (this.CheckForHover())
                 {
-                    this.Texture = Textures.GetTexture("HoverBlock");
+                    this.Texture = this.textures.GetTexture("HoverBlock");
                 }
                 else
                 {
-                    this.Texture = Textures.GetTexture("DeffaultBlock");             
+                    this.Texture = this.textures.GetTexture("DeffaultBlock");             
                 }
 
                 if (this.CheckForClick())
@@ -86,14 +90,14 @@
                         if (this.Code == MemoryMatrixConstants.CorrectBlockCode)
                         {
                             // change texture to correct
-                            this.Texture = Textures.GetTexture("CorrectBlock");
+                            this.Texture = this.textures.GetTexture("CorrectBlock");
                             this.Code = MemoryMatrixConstants.TurnedCorrectCode;
                         }
 
                         if (this.Code == MemoryMatrixConstants.DefaultBlockCode)
                         {
                             // change texture to wrong
-                            this.Texture = Textures.GetTexture("WrongBlock");
+                            this.Texture = this.textures.GetTexture("WrongBlock");
                             this.Code = MemoryMatrixConstants.TurnedWrongCode;
                         }
 

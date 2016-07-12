@@ -30,10 +30,11 @@
         public const int DifficultySelectBoxHeight = 38;
 
         public const int GameSelectBoxX = 330;
-        public const int GameSelectBoxY1 = 240;
-        public const int GameSelectBoxY2 = 350;
-        public const int GameSelectBoxY3 = 460;
+        public const int GameSelectBoxY1 = 210;
+        public const int GameSelectBoxY2 = 300;
+        public const int GameSelectBoxY3 = 390;
+        public const int GameSelectBoxY4 = 480;
         public const int GameSelectBoxWidth = 400;
-        public const int GameSelectBoxHeight = 85;
+        public const int GameSelectBoxHeight = 75;
     }
 }

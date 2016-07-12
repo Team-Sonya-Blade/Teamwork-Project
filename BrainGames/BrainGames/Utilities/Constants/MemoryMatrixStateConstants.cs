@@ -10,8 +10,8 @@
         public const int TurnedWrongCode = 3;
 
         public const float TimeForEasyDifficulty = 4.5f;
-        public const float TimeForNormalDifficulty = 3.5f;
-        public const float TimeForHardDifficulty = 2.5f;
+        public const float TimeForNormalDifficulty = 2.5f;
+        public const float TimeForHardDifficulty = 1.5f;
 
         public const int Size = 6;
         public const int StartingScore = 0;

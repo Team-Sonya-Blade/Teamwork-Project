@@ -4,6 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/TELERIK/3. C# - OOP/TEAMWORK/BrainGames/BrainGames/Content/Fonts/ArialFont.spritefont</File>
+    <File>C:/Users/gvelikov/Desktop/Teamwork-Project-accTrainer-highScore/BrainGames/BrainGames/Content/Fonts/ArialFont</File>
+    <File>C:/Users/gvelikov/Desktop/Teamwork-Project-accTrainer-highScore/BrainGames/BrainGames/Content/SoundEffects/SimonSays/blueButtonSound.wav</File>
+    <File>C:/Users/gvelikov/Desktop/Teamwork-Project-accTrainer-highScore/BrainGames/BrainGames/Content/SoundEffects/SimonSays/greenButtonSound.wav</File>
+    <File>C:/Users/gvelikov/Desktop/Teamwork-Project-accTrainer-highScore/BrainGames/BrainGames/Content/SoundEffects/SimonSays/redButtonSound.wav</File>
+    <File>C:/Users/gvelikov/Desktop/Teamwork-Project-accTrainer-highScore/BrainGames/BrainGames/Content/SoundEffects/SimonSays/yellowButtonSound.wav</File>
   </SourceFiles>
 </SourceFileCollection>

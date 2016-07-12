@@ -24,12 +24,15 @@
         private GameBoard gameBoard;
         private UpperMenu upperMenu;
         private ClickableBox quit;
+        private int difficultyBonus;
 
-        public MemoryMatrixState(Background background, GameStateManager gsm)
-            : base(background, gsm)
+        public MemoryMatrixState(Background background, GameStateManager gsm, Textures textures)
+            : base(background, gsm, textures)
         {
             this.SetDifficultyTimer();
+            this.SetDifficultyBonus();
             this.InitializeObjects();
+            
         }
 
         public override void Update(GameTime gameTime)
@@ -68,7 +71,7 @@
         private void InitializeBoard()
         {
             this.gameBoard = new GameBoard(
-                Textures.GetTexture("MemoryMatrixGameBoard"),
+                this.GameTextures.GetTexture("MemoryMatrixGameBoard"),
                 new Rectangle(
                     MemoryMatrixConstants.GameBoardStartingX,
                     MemoryMatrixConstants.GameBoardStartingY,
@@ -76,7 +79,8 @@
                     MemoryMatrixConstants.GameBoardStartingHeight),
                 this.currentScore,
                 this.level.LevelNumber,
-                this.level.NumberOfBlocks);
+                this.level.NumberOfBlocks,
+                this.difficultyBonus);
             this.ListOfObjects.Add(this.gameBoard);
             this.gameBoard.Board = new Block[MemoryMatrixConstants.Size, MemoryMatrixConstants.Size];
             for (int row = 0; row < MemoryMatrixConstants.Size; row++)
@@ -85,20 +89,20 @@
                 {
                     if (this.level.Map[row, col] == MemoryMatrixConstants.DefaultBlockCode)
                     {
-                        Texture2D texture = Textures.GetTexture("DeffaultBlock");
+                        Texture2D texture = this.GameTextures.GetTexture("DeffaultBlock");
                         Rectangle rectangle = this.GenerateRectangle(row, col);
                         int code = MemoryMatrixConstants.DefaultBlockCode;
 
-                        this.gameBoard.Board[row, col] = new Block(texture, rectangle, code);
+                        this.gameBoard.Board[row, col] = new Block(texture, rectangle, code, this.GameTextures);
                     }
 
                     if (this.level.Map[row, col] == MemoryMatrixConstants.CorrectBlockCode)
                     {
-                        Texture2D texture = Textures.GetTexture("CorrectBlock");
+                        Texture2D texture = this.GameTextures.GetTexture("CorrectBlock");
                         Rectangle rectangle = this.GenerateRectangle(row, col);
                         int code = MemoryMatrixConstants.CorrectBlockCode;
 
-                        this.gameBoard.Board[row, col] = new Block(texture, rectangle, code);
+                        this.gameBoard.Board[row, col] = new Block(texture, rectangle, code, this.GameTextures);
                     }
                 }
             }
@@ -106,7 +110,7 @@
 
         private void InitializeUpperMenu()
         {
-            var texture = Textures.GetTexture("MemoryMatrixUpperMenu");
+            var texture = this.GameTextures.GetTexture("MemoryMatrixUpperMenu");
             var rectangle = new Rectangle(
                 MemoryMatrixConstants.UpperMenuStartingX, 
                 MemoryMatrixConstants.UpperMenuStartingY,
@@ -145,7 +149,7 @@
         private void InitializeQuitButton()
         {
             this.quit = new ClickableBox(
-                Textures.GetTexture("MemoryMatrixQuit"),
+                this.GameTextures.GetTexture("Quit"),
                 new Rectangle(
                     MemoryMatrixConstants.QuitStartingX,
                     MemoryMatrixConstants.QuitStartingY,
@@ -154,7 +158,6 @@
             this.ListOfObjects.Add(this.quit);
         }
 
-        // Hides the content of the board after X seconds(according to difficulty). Executed only once at the beggining of the level
         private void HideBoard(GameTime gameTime)
         {
             if (!this.gameBoard.IsBoardHidden)
@@ -167,7 +170,7 @@
                     {
                         for (int col = 0; col < MemoryMatrixConstants.Size; col++)
                         {
-                            this.gameBoard.Board[row, col].Texture = Textures.GetTexture("DeffaultBlock");
+                            this.gameBoard.Board[row, col].Texture = this.GameTextures.GetTexture("DeffaultBlock");
                             this.gameBoard.Board[row, col].IsTurned = false;
                         }
                     }
@@ -221,10 +224,35 @@
             this.SetDifficultyTimer();
         }
 
+        private void SetDifficultyBonus()
+        {
+            if (this.StateManager.Difficulty == DifficultyType.Easy)
+            {
+                this.difficultyBonus = 1;
+            }
+            if (this.StateManager.Difficulty == DifficultyType.Normal)
+            {
+                this.difficultyBonus = 2;
+            }
+            if (this.StateManager.Difficulty == DifficultyType.Hard)
+            {
+                this.difficultyBonus = 3;
+            }
+        }
+
         private void QuitGame()
         {
+            this.SaveResults();
             Thread.Sleep(MemoryMatrixConstants.IntervalBeforeQuit);
             this.StateManager.States.Pop();
+        }
+
+        private void SaveResults()
+        {
+            using (StreamWriter writer = new StreamWriter(GlobalConstants.MemoryMatrixHighScorePath, true))
+            {
+                writer.WriteLine(this.gameBoard.BoardScore);
+            }
         }
     }
 }

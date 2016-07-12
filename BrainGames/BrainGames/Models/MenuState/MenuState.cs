@@ -1,6 +1,7 @@
 ﻿namespace BrainGames.Models.MenuState
 {
     using global::BrainGames.Models.MemoryMatrixState;
+    using global::BrainGames.Models.SimonSaysState;
     using global::BrainGames.Utilities.Enumerations;
 
     using Microsoft.Xna.Framework;
@@ -19,12 +20,13 @@
         private ClickableBox highScoresBox;
         private ClickableBox exitBox;
         private RegularBox selectBox;
-        private ClickableBox selectBoxEagleEye;
+        private ClickableBox selectBoxAccuracyTrainer;
         private ClickableBox selectBoxMemoryMatrix;
-        private ClickableBox selectBoxPinball;
+        private ClickableBox selectBoxEagleEye;
+        private ClickableBox selectBoxSimonSays;
 
-        public MenuState(Background background, GameStateManager gsm)
-            : base(background, gsm)
+        public MenuState(Background background, GameStateManager gsm, Textures textures)
+            : base(background, gsm, textures)
         {
             this.InitializeObjects();
         }
@@ -33,47 +35,55 @@
         {
             if (this.difficultyBoxEasy.CheckForClick())
             {
-                this.difficultyBoxEasy.Texture = Textures.GetTexture("DifficultyEasySelected");
-                this.difficultyBoxNormal.Texture = Textures.GetTexture("DifficultyNormal");
-                this.difficultyBoxHard.Texture = Textures.GetTexture("DifficultyHard");
+                this.difficultyBoxEasy.Texture = this.GameTextures.GetTexture("DifficultyEasySelected");
+                this.difficultyBoxNormal.Texture = this.GameTextures.GetTexture("DifficultyNormal");
+                this.difficultyBoxHard.Texture = this.GameTextures.GetTexture("DifficultyHard");
                 this.StateManager.Difficulty = DifficultyType.Easy;
             }
 
             if (this.difficultyBoxNormal.CheckForClick())
             {
-                this.difficultyBoxEasy.Texture = Textures.GetTexture("DifficultyEasy");
-                this.difficultyBoxNormal.Texture = Textures.GetTexture("DifficultyNormalSelected");
-                this.difficultyBoxHard.Texture = Textures.GetTexture("DifficultyHard");
+                this.difficultyBoxEasy.Texture = this.GameTextures.GetTexture("DifficultyEasy");
+                this.difficultyBoxNormal.Texture = this.GameTextures.GetTexture("DifficultyNormalSelected");
+                this.difficultyBoxHard.Texture = this.GameTextures.GetTexture("DifficultyHard");
                 this.StateManager.Difficulty = DifficultyType.Normal;
             }
 
             if (this.difficultyBoxHard.CheckForClick())
             {
-                this.difficultyBoxEasy.Texture = Textures.GetTexture("DifficultyEasy");
-                this.difficultyBoxNormal.Texture = Textures.GetTexture("DifficultyNormal");
-                this.difficultyBoxHard.Texture = Textures.GetTexture("DifficultyHardSelected");
+                this.difficultyBoxEasy.Texture = this.GameTextures.GetTexture("DifficultyEasy");
+                this.difficultyBoxNormal.Texture = this.GameTextures.GetTexture("DifficultyNormal");
+                this.difficultyBoxHard.Texture = this.GameTextures.GetTexture("DifficultyHardSelected");
                 this.StateManager.Difficulty = DifficultyType.Hard;
             }
 
-            if (this.selectBoxEagleEye.CheckForClick())
+            if (this.selectBoxAccuracyTrainer.CheckForClick())
             {
-                // TO DO: this.StateManager.States.Push(new EagleEyeState());
+                Background accuracyTrainerBackground = new Background(this.GameTextures.GetTexture("MemoryMatrixBackground"));
+                this.StateManager.States.Push(new AccuracyTrainerState(accuracyTrainerBackground, this.StateManager, this.GameTextures));
             }
 
             if (this.selectBoxMemoryMatrix.CheckForClick())
             {
-                Background memoryMatrixBackground = new Background(Textures.GetTexture("MemoryMatrixBackground"));
-                this.StateManager.States.Push(new MemoryMatrixState(memoryMatrixBackground, this.StateManager));
+                Background memoryMatrixBackground = new Background(this.GameTextures.GetTexture("MemoryMatrixBackground"));
+                this.StateManager.States.Push(new MemoryMatrixState(memoryMatrixBackground, this.StateManager, this.GameTextures));
             }
 
-            if (this.selectBoxPinball.CheckForClick())
+            if (this.selectBoxEagleEye.CheckForClick())
             {
-                //this.StateManager.States.Push(new PinballState());
+                //this.StateManager.States.Push(new EagleEyeState());
+            }
+
+            if (this.selectBoxSimonSays.CheckForClick())
+            {
+                Background simonSaysBackground = new Background(this.GameTextures.GetTexture("SimonSaysBackground"));
+                this.StateManager.States.Push(new SimonSaysState(simonSaysBackground, this.StateManager, this.GameTextures));
             }
 
             if (this.highScoresBox.CheckForClick())
             {
-                // TO DO: show high scores
+                Background accuracyTrainerBackground = new Background(this.GameTextures.GetTexture("MemoryMatrixBackground"));
+                this.StateManager.States.Push(new HighScoreState(accuracyTrainerBackground, this.StateManager, this.GameTextures));
             }
 
             if (this.exitBox.CheckForClick())
@@ -85,7 +95,7 @@
         private void InitializeObjects()
         {
             this.difficultyBox = new RegularBox(
-                Textures.GetTexture("DifficultyBox"), 
+                this.GameTextures.GetTexture("DifficultyBox"), 
                 new Rectangle(
                     MenuStateConstants.DifficultyBoxStartingX, 
                     MenuStateConstants.DifficultyBoxStartingY,
@@ -94,7 +104,7 @@
             this.ListOfObjects.Add(this.difficultyBox);
 
             this.highScoresBox = new ClickableBox(
-                Textures.GetTexture("HighScoresBox"),
+                this.GameTextures.GetTexture("HighScoresBox"),
                 new Rectangle(
                     MenuStateConstants.HighScoreBoxStartingX,
                     MenuStateConstants.HighScoreBoxStartingY,
@@ -103,7 +113,7 @@
             this.ListOfObjects.Add(this.highScoresBox);
 
             this.exitBox = new ClickableBox(
-                Textures.GetTexture("ExitBox"),
+                this.GameTextures.GetTexture("ExitBox"),
                 new Rectangle(
                     MenuStateConstants.ExitBoxStartingX,
                     MenuStateConstants.ExitBoxStartingY,
@@ -112,7 +122,7 @@
             this.ListOfObjects.Add(this.exitBox);
 
             this.selectBox = new RegularBox(
-                Textures.GetTexture("SelectBox"),
+                this.GameTextures.GetTexture("SelectBox"),
                 new Rectangle(
                     MenuStateConstants.SelectBoxStartingX,
                     MenuStateConstants.SelectBoxStartingY,
@@ -121,7 +131,7 @@
             this.ListOfObjects.Add(this.selectBox);
 
             this.difficultyBoxEasy = new ClickableBox(
-                Textures.GetTexture("DifficultyEasySelected"), // default difficulty will be easy
+                this.GameTextures.GetTexture("DifficultyEasySelected"), // default difficulty will be easy
                 new Rectangle(
                     MenuStateConstants.DifficultySelectBoxX,
                     MenuStateConstants.DifficultySelectBoxY1,
@@ -130,7 +140,7 @@
             this.ListOfObjects.Add(this.difficultyBoxEasy);
 
             this.difficultyBoxNormal = new ClickableBox(
-                Textures.GetTexture("DifficultyNormal"), // default difficulty will be easy
+                this.GameTextures.GetTexture("DifficultyNormal"), // default difficulty will be easy
                 new Rectangle(
                     MenuStateConstants.DifficultySelectBoxX,
                     MenuStateConstants.DifficultySelectBoxY2,
@@ -139,7 +149,7 @@
             this.ListOfObjects.Add(this.difficultyBoxNormal);
 
             this.difficultyBoxHard = new ClickableBox(
-                Textures.GetTexture("DifficultyHard"), // default difficulty will be easy
+                this.GameTextures.GetTexture("DifficultyHard"), // default difficulty will be easy
                 new Rectangle(
                     MenuStateConstants.DifficultySelectBoxX,
                     MenuStateConstants.DifficultySelectBoxY3,
@@ -147,17 +157,17 @@
                     MenuStateConstants.DifficultySelectBoxHeight));
             this.ListOfObjects.Add(this.difficultyBoxHard);
 
-            this.selectBoxEagleEye = new ClickableBox(
-                Textures.GetTexture("SelectBoxEagleEye"),
+            this.selectBoxAccuracyTrainer = new ClickableBox(
+                this.GameTextures.GetTexture("SelectBoxAccuracy"),
                 new Rectangle(
                     MenuStateConstants.GameSelectBoxX,
                     MenuStateConstants.GameSelectBoxY1,
                     MenuStateConstants.GameSelectBoxWidth,
                     MenuStateConstants.GameSelectBoxHeight));
-            this.ListOfObjects.Add(this.selectBoxEagleEye);
+            this.ListOfObjects.Add(this.selectBoxAccuracyTrainer);
 
             this.selectBoxMemoryMatrix = new ClickableBox(
-                Textures.GetTexture("SelectBoxMemoryMatrix"),
+                this.GameTextures.GetTexture("SelectBoxMemoryMatrix"),
                 new Rectangle(
                     MenuStateConstants.GameSelectBoxX,
                     MenuStateConstants.GameSelectBoxY2,
@@ -165,14 +175,23 @@
                     MenuStateConstants.GameSelectBoxHeight));
             this.ListOfObjects.Add(this.selectBoxMemoryMatrix);
 
-            this.selectBoxPinball = new ClickableBox(
-                Textures.GetTexture("SelectBoxPinball"),
+            this.selectBoxEagleEye = new ClickableBox(
+                this.GameTextures.GetTexture("SelectBoxEagleEye"),
                 new Rectangle(
                     MenuStateConstants.GameSelectBoxX,
                     MenuStateConstants.GameSelectBoxY3,
                     MenuStateConstants.GameSelectBoxWidth,
                     MenuStateConstants.GameSelectBoxHeight));
-            this.ListOfObjects.Add(this.selectBoxPinball);
+            this.ListOfObjects.Add(this.selectBoxEagleEye);
+
+            this.selectBoxSimonSays = new ClickableBox(
+                this.GameTextures.GetTexture("SelectBoxSimonSays"),
+                new Rectangle(
+                    MenuStateConstants.GameSelectBoxX,
+                    MenuStateConstants.GameSelectBoxY4,
+                    MenuStateConstants.GameSelectBoxWidth,
+                    MenuStateConstants.GameSelectBoxHeight));
+            this.ListOfObjects.Add(this.selectBoxSimonSays);
         }
     }
 }

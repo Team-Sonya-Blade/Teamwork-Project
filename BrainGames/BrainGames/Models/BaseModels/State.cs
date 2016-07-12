@@ -2,6 +2,8 @@
 {
     using System.Collections.Generic;
 
+    using global::BrainGames.Utilities.Textures;
+
     using Interfaces;
 
     using Microsoft.Xna.Framework;
@@ -12,12 +14,22 @@
         private Background background;
         private GameStateManager gsm;
         private List<GameObject> listOfObjects = new List<GameObject>();
+        private Textures textures;
 
-        public State(Background background, GameStateManager gsm)
+        public State(Background background, GameStateManager gsm, Textures textures)
         {
             this.Background = background;
             this.StateManager = gsm;
+            this.textures = textures;
             this.ListOfObjects.Add(this.Background);
+        }
+
+        public Textures GameTextures
+        {
+            get
+            {
+                return this.textures;
+            }
         }
 
         public Background Background

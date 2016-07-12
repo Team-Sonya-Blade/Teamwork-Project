@@ -14,13 +14,15 @@
         private int boardScore;
         private int blocksLeft;
         private int levelNumber;
+        private int difficultyBonus;
 
-        public GameBoard(Texture2D texture, Rectangle rectangle, int boardScore, int levelNumber, int blocksLeft)
+        public GameBoard(Texture2D texture, Rectangle rectangle, int boardScore, int levelNumber, int blocksLeft, int difficltyBonus)
             : base(texture, rectangle)
         {
             this.BoardScore = boardScore;
             this.LevelNumber = levelNumber;
             this.BlocksLeft = blocksLeft;
+            this.difficultyBonus = difficltyBonus;
         }
 
         public Block[,] Board
@@ -105,14 +107,14 @@
                     {
                         if (this.board[row, col].Code == MemoryMatrixConstants.TurnedCorrectCode)
                         {
-                            this.BoardScore += MemoryMatrixConstants.BonusForCorrect;
+                            this.BoardScore += MemoryMatrixConstants.BonusForCorrect * this.difficultyBonus;
                             this.BlocksLeft--;
                             this.board[row, col].IsCalculatedToScore = true;
                         }
 
                         if (this.board[row, col].Code == MemoryMatrixConstants.TurnedWrongCode)
                         {
-                            this.BoardScore -= MemoryMatrixConstants.PenaltyForWrong;
+                            this.BoardScore -= MemoryMatrixConstants.PenaltyForWrong * this.difficultyBonus;
                             this.board[row, col].IsCalculatedToScore = true;
                         }
                     }
